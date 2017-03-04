@@ -55,7 +55,6 @@ class TwitterAPI:
 
 
 
-twitter = TwitterAPI()
-twitter.get_tweets_by_user('codeharry')
+
 
     
