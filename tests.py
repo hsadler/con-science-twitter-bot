@@ -5,4 +5,4 @@ from models.twitter_api import TwitterAPI
 
 
 twitter = TwitterAPI()
-twitter.get_tweets_by_user('codeharry')
+twitter.print_home_timeline()
