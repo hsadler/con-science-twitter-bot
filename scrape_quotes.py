@@ -8,6 +8,8 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 
+# DEPRICATED: This is now an example file
+
 
 class QuoteScraper:
 

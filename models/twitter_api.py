@@ -25,6 +25,8 @@ class TwitterAPI:
         self.api.update_status(status=message)
 
 
+    # TODO: These are mostly just testing methods, needs refactor
+
     def print_home_timeline(self):
         public_tweets = self.api.home_timeline()
         for tweet in public_tweets:
