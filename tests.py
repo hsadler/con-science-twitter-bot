@@ -1,8 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from models.twitter_api import TwitterAPI
+from models.quote import Quote
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
-twitter = TwitterAPI()
-twitter.print_home_timeline()
+
+
+quote = Quote.create('I am a banana!')
+quote.save()
+pp.pprint(quote.__dict__)
+
+
+
