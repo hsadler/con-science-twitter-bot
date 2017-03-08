@@ -1,0 +1,10 @@
+
+url: http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en
+
+{
+    "quoteText": "The man who trusts men will make fewer mistakes than he who distrusts them. ",
+    "quoteAuthor": "Cavour",
+    "senderName": "",
+    "senderLink": "",
+    "quoteLink": "http://forismatic.com/en/5ec21990d1/"
+}

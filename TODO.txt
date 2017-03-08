@@ -1,5 +1,3 @@
 
-- Collect short quotes via web search and scrape
-X Connect ConScienceBot to app with updated config.py
-- Program method to get most favorited replys to given tweet
-- Program method to analyze user tweets and provide a response
+- implement scrape methods
+- decide on text search solution (Sphinx?)

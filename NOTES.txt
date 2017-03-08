@@ -1,17 +1,18 @@
 
 
-Sites with quotes, sayings, and proverbs:
+App bot description:
 
-http://www.wiseoldsayings.com/
+1. bot searches for tweets from news sources
+2. bot finds highest rated reply
+3. bot analyzes original news tweet string and reply string
+4. bot takes keywords and makes a query to database for relevant quotes
+5. bot replies to highest rated reply with a formatted quote tweet
 
-https://litemind.com/best-famous-quotes/
 
-http://www.cs.virginia.edu/~robins/quotes.html
+App scrape description:
 
-https://www.brainyquote.com/
-
-best so far for scraping:
-https://www.brainyquote.com/search_results.html?q=bigotry
+1. make requests at cron job intervals to quote APIs
+2. parse response and store in quote database
 
 
 APIs:
@@ -36,13 +37,6 @@ ex: (key is 6 digit string that effects the quote selection)
 http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en
 
 
-
-
-
-
-testing:
-
-http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=xml&lang=en
 
 
 
