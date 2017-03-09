@@ -12,8 +12,11 @@ try:
 	quote.save()
 	pp.pprint(quote.__dict__)
 except:
-	print 'got nothing...'
+	print 'insert already exists'
 
 
+fetched_quote = Quote.find_by_quote_text('I am a banana!')
+if fetched_quote is not None:
+    pp.pprint(fetched_quote.__dict__)
 
 

@@ -14,8 +14,8 @@ pp = pprint.PrettyPrinter(indent=4)
 class Quote:
 
 
-    def __init__(self, quote_id=None, quote_text, author, source_url, active, md5hash):
-        
+    def __init__(self, quote_text, author, source_url, active, md5hash, quote_id=None):
+
         # CREATE TABLE IF NOT EXISTS quotes(
         #     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
         #     quote_text VARCHAR(2000) NOT NULL,
@@ -26,18 +26,18 @@ class Quote:
         #     UNIQUE (md5hash)
         # );
 
-        self.quote_id = quote_id
         self.quote_text = quote_text
         self.author = author
         self.source_url = source_url
         self.active = active
         self.md5hash = md5hash
+        self.quote_id = quote_id
 
 
     # create instance from gathered data
     @classmethod
     def create(cls, quote_text, author=None, source_url=None, active=1):
-        
+
         return cls(
             quote_text = quote_text,
             author = author,
@@ -51,14 +51,14 @@ class Quote:
     def save(self):
 
         if not hasattr(self, 'quote_text'):
-            return False
+            return None
 
         db = MySQL_DB()
 
         with db.connection:
-            
+
             query = """
-                INSERT INTO quotes(quote_text, author, source_url, active, md5hash) 
+                INSERT INTO quotes(quote_text, author, source_url, active, md5hash)
                 VALUES(%s, %s, %s, %s, %s);
             """
 
@@ -91,13 +91,25 @@ class Quote:
                 md5hash = record['md5hash']
             )
         except:
-            return False
+            return None
 
 
     @classmethod
     def find_by_quote_text(cls, quote_text):
+
         hash = cls.get_md5hash(quote_text)
 
+        db = MySQL_DB()
+
+        with db.connection:
+            query = 'SELECT * FROM quotes WHERE md5hash = "{0}"'.format(hash)
+            db.cur.execute(query)
+            record = db.cur.fetchone()
+
+        if record is None:
+            return None
+
+        return cls.create_from_db_record(record)
 
 
     @staticmethod

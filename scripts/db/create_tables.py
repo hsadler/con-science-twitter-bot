@@ -9,7 +9,7 @@ cur = con.cursor()
 
 with con:
 
-    # cur.execute('DROP TABLE quotes;')
+    cur.execute('DROP TABLE quotes;')
 
     # create quotes table
     cur.execute("""
