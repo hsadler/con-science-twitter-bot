@@ -7,10 +7,13 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 
+try:
+	quote = Quote.create('I am a banana!')
+	quote.save()
+	pp.pprint(quote.__dict__)
+except:
+	print 'got nothing...'
 
-quote = Quote.create('I am a banana!')
-quote.save()
-pp.pprint(quote.__dict__)
 
 
 

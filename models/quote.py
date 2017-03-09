@@ -14,7 +14,7 @@ pp = pprint.PrettyPrinter(indent=4)
 class Quote:
 
 
-    def __init__(self, quote_text, author, source_url, active, md5hash):
+    def __init__(self, quote_id=None, quote_text, author, source_url, active, md5hash):
         
         # CREATE TABLE IF NOT EXISTS quotes(
         #     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -26,6 +26,7 @@ class Quote:
         #     UNIQUE (md5hash)
         # );
 
+        self.quote_id = quote_id
         self.quote_text = quote_text
         self.author = author
         self.source_url = source_url
@@ -42,11 +43,15 @@ class Quote:
             author = author,
             source_url = source_url,
             active = active,
-            md5hash = hashlib.md5(quote_text.encode('ascii', 'ignore')).hexdigest()
+            md5hash = cls.get_md5hash(quote_text)
         )
 
 
+    # save instance
     def save(self):
+
+        if not hasattr(self, 'quote_text'):
+            return False
 
         db = MySQL_DB()
 
@@ -73,8 +78,31 @@ class Quote:
         return self
 
 
-    def find_by_quote_text(self):
-        pass
+    # create instance from db record
+    @classmethod
+    def create_from_db_record(cls, record):
+        try:
+            return cls(
+                quote_id = record['id'],
+                quote_text = record['quote_text'],
+                author = record['author'],
+                source_url = record['source_url'],
+                active = record['active'],
+                md5hash = record['md5hash']
+            )
+        except:
+            return False
+
+
+    @classmethod
+    def find_by_quote_text(cls, quote_text):
+        hash = cls.get_md5hash(quote_text)
+
+
+
+    @staticmethod
+    def get_md5hash(string_to_hash):
+        return hashlib.md5(string_to_hash.encode('ascii', 'ignore')).hexdigest()
 
 
     def update(self):
@@ -83,5 +111,24 @@ class Quote:
 
     def delete(self):
         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
