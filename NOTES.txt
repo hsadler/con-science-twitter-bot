@@ -23,17 +23,19 @@ with full params from their site:
 https://www.brainyquote.com/api/rand_q?ts=14887597786.99&langc=en
 
 
-stands4 API (requres user_id and user_token):
+stands4 API (requres user_id and user_token, 100 requests per day):
 http://www.stands4.com/services/v2/quotes.php
 params
 ?uid=[user_id]&tokenid=[user_token]
 &searchtype=[SEARCH, AUTHOR, or RANDOM]
 &query=[search_term]
+random quote:
+http://www.stands4.com/services/v2/quotes.php?uid=[user_id]&tokenid=[user_token]&searchtype=SEARCH
 
 
 One of the best scrapable APIs so far:
 http://forismatic.com/en/api/
-ex: (key is 6 digit string that effects the quote selection)
+ex: (key param is an up to 6 digit string that effects the quote selection)
 http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en
 
 
