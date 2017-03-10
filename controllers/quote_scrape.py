@@ -3,10 +3,11 @@
 
 # Quote scrape controller
 
-import config
-
 from models.quote import Quote
+from xml.etree import ElementTree
 
+import config
+import time
 import requests
 import json
 import pprint
@@ -32,12 +33,15 @@ class QuoteScrape:
         # create quote model instance
         quote = Quote.create(
             quote_text=quote_data['qt'].strip(),
-            author=quote_data['an'],
-            source_url=brainyquote_base_url + quote_data['q_url']
+            author=quote_data['an'].strip(),
+            source_url=brainyquote_base_url + quote_data['q_url'].strip()
         )
 
         # store quote
         quote.save()
+
+        print '\nbrainy quote scrape success:'
+        pp.pprint(quote.__dict__)
 
 
     @staticmethod
@@ -53,12 +57,15 @@ class QuoteScrape:
         # create quote model instance
         quote = Quote.create(
             quote_text=quote_data['quoteText'].strip(),
-            author=quote_data['quoteAuthor'],
-            source_url=quote_data['quoteLink']
+            author=quote_data['quoteAuthor'].strip(),
+            source_url=quote_data['quoteLink'].strip()
         )
 
         # store quote
         quote.save()
+
+        print '\nforismatic quote scrape success:'
+        pp.pprint(quote.__dict__)
 
 
     @staticmethod
@@ -78,11 +85,36 @@ class QuoteScrape:
 
         res = requests.get(full_url)
 
-        pp.pprint(res.content)
-
         # process res data
+        res_tree = ElementTree.fromstring(res.content)
+
+        quote_text = res_tree.find('result').find('quote').text
+        quote_author = res_tree.find('result').find('author').text
+
         # create quote model instance
+        quote = Quote.create(
+            quote_text=quote_text.strip(),
+            author=quote_author.strip()
+        )
+
         # store quote
+        quote.save()
+
+        print '\nstands4 quote scrape success:'
+        pp.pprint(quote.__dict__)
+
+
+    @classmethod
+    def batch_scrape_stands4(cls, iterations=100, sleep_time=5):
+        
+        for i in range(iterations):
+            
+            try:
+                cls.scrape_stands4()
+            except:
+                print 'stantds4 scrape fail'
+
+            time.sleep(sleep_time)
 
 
 
