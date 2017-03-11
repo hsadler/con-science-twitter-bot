@@ -106,9 +106,9 @@ class QuoteScrape:
 
     @classmethod
     def batch_scrape_stands4(cls, iterations=100, sleep_time=5):
-        
+
         for i in range(iterations):
-            
+
             try:
                 cls.scrape_stands4()
             except:
