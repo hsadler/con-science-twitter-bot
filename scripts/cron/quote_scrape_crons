@@ -1,0 +1,6 @@
+
+# scrape brainy and forismatic every 5 minutes
+*/5 * * * * cd git/con-science-twitter-bot/ && python -c 'import bot; bot.scrape_brainy_and_forismatic()'
+
+# scrape stands4 and noon every day
+0 20 * * * cd git/con-science-twitter-bot/ && python -c 'import bot; bot.batch_scrape_stands4()'

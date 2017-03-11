@@ -1,6 +1,7 @@
 
 
-- implement scrape methods
+X implement scrape methods
+- schedule scrape cron jobs
 - decide on text search solution (Sphinx?)
 - implement tweet search
 

@@ -9,11 +9,13 @@ def scrape_brainy_and_forismatic():
 	try:
 		QuoteScrape.scrape_brainy()
 	except:
+        # TODO: add error logger here
 		print 'brainy scrape fail'
 
 	try:
 		QuoteScrape.scrape_forismatic()
 	except:
+        # TODO: add error logger here
 		print 'forismatic scrape fail'
 
 

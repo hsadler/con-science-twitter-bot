@@ -40,8 +40,8 @@ class QuoteScrape:
         # store quote
         quote.save()
 
-        print '\nbrainy quote scrape success:'
-        pp.pprint(quote.__dict__)
+        # print '\nbrainy quote scrape success:'
+        # pp.pprint(quote.__dict__)
 
 
     @staticmethod
@@ -64,8 +64,8 @@ class QuoteScrape:
         # store quote
         quote.save()
 
-        print '\nforismatic quote scrape success:'
-        pp.pprint(quote.__dict__)
+        # print '\nforismatic quote scrape success:'
+        # pp.pprint(quote.__dict__)
 
 
     @staticmethod
@@ -100,8 +100,8 @@ class QuoteScrape:
         # store quote
         quote.save()
 
-        print '\nstands4 quote scrape success:'
-        pp.pprint(quote.__dict__)
+        # print '\nstands4 quote scrape success:'
+        # pp.pprint(quote.__dict__)
 
 
     @classmethod
@@ -112,6 +112,7 @@ class QuoteScrape:
             try:
                 cls.scrape_stands4()
             except:
+                # TODO: add error logger here
                 print 'stantds4 scrape fail'
 
             time.sleep(sleep_time)
