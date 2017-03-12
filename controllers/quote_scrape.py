@@ -4,6 +4,7 @@
 # Quote scrape controller
 
 from models.quote import Quote
+from models.error_log import ErrorLog
 from xml.etree import ElementTree
 
 import config
@@ -112,8 +113,7 @@ class QuoteScrape:
             try:
                 cls.scrape_stands4()
             except:
-                # TODO: add error logger here
-                print 'stantds4 scrape fail'
+                ErrorLog.log_exception('stantds4 scrape fail')
 
             time.sleep(sleep_time)
 

@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from models.error_log import ErrorLog
 from controllers.quote_scrape import QuoteScrape
+
 
 
 def scrape_brainy_and_forismatic():
@@ -9,14 +11,12 @@ def scrape_brainy_and_forismatic():
 	try:
 		QuoteScrape.scrape_brainy()
 	except:
-        # TODO: add error logger here
-		print 'brainy scrape fail'
+        ErrorLog.log_exception('brainy scrape fail')
 
 	try:
 		QuoteScrape.scrape_forismatic()
 	except:
-        # TODO: add error logger here
-		print 'forismatic scrape fail'
+        ErrorLog.log_exception('forismatic scrape fail')
 
 
 def batch_scrape_stands4():
