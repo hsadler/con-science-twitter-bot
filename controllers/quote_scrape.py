@@ -50,9 +50,6 @@ class QuoteScrape:
         # store quote
         quote.save()
 
-        # print '\nbrainy quote scrape success:'
-        # pp.pprint(quote.__dict__)
-
 
     @classmethod
     def scrape_forismatic(cls):
@@ -80,9 +77,6 @@ class QuoteScrape:
 
         # store quote
         quote.save()
-
-        # print '\nforismatic quote scrape success:'
-        # pp.pprint(quote.__dict__)
 
 
     @staticmethod
@@ -117,9 +111,6 @@ class QuoteScrape:
         # store quote
         quote.save()
 
-        # print '\nstands4 quote scrape success:'
-        # pp.pprint(quote.__dict__)
-
 
     @classmethod
     def batch_scrape_stands4(cls, iterations=100, sleep_time=5):
@@ -139,11 +130,6 @@ class QuoteScrape:
 
         escapes = ['\\n', '\\r', '\\t', '\\']
 
-        do_log = False
-        if '\\' in string:
-            ErrorLog.log_info('Bad escape found for string: ' + string)
-            do_log = True
-
         for esc in escapes:
             if esc == '\\':
                 string = string.replace(esc, '')
@@ -151,10 +137,6 @@ class QuoteScrape:
                 string = string.replace(esc, ' ')
 
         re.sub(' +',' ', string)
-
-        if do_log:
-            ErrorLog.log_info('Changed to string: ' + string)
-
         return string
 
 
