@@ -8,6 +8,7 @@ from models.error_log import ErrorLog
 from xml.etree import ElementTree
 
 import config
+import sys
 import time
 import requests
 import json
@@ -29,7 +30,11 @@ class QuoteScrape:
         res = requests.get(scrape_url)
 
         # process res data
-        quote_data = json.loads(res.text)
+        try:
+            quote_data = json.loads(res.text)
+        except:
+            ErrorLog.log_exception('json.loads() fail with res.text: ' + res.text)
+            sys.exit()
 
         # create quote model instance
         quote = Quote.create(
@@ -53,7 +58,11 @@ class QuoteScrape:
         res = requests.get(scrape_url)
 
         # process res data
-        quote_data = json.loads(res.text)
+        try:
+            quote_data = json.loads(res.text)
+        except:
+            ErrorLog.log_exception('json.loads() fail with res.text: ' + res.text)
+            sys.exit()
 
         # create quote model instance
         quote = Quote.create(
