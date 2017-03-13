@@ -9,6 +9,7 @@ from xml.etree import ElementTree
 
 import config
 import sys
+import re
 import time
 import requests
 import json
@@ -20,8 +21,8 @@ pp = pprint.PrettyPrinter(indent=4)
 class QuoteScrape:
 
 
-    @staticmethod
-    def scrape_brainy():
+    @classmethod
+    def scrape_brainy(cls):
 
         brainyquote_base_url = 'https://www.brainyquote.com'
 
@@ -29,11 +30,14 @@ class QuoteScrape:
         scrape_url = 'https://www.brainyquote.com/api/rand_q'
         res = requests.get(scrape_url)
 
+        # unescape the result before deserializing json result
+        res_json_string = cls.unescape_string(res.text)
+
         # process res data
         try:
-            quote_data = json.loads(res.text)
+            quote_data = json.loads(res_json_string)
         except:
-            ErrorLog.log_exception('json.loads() fail with res.text: ' + res.text)
+            ErrorLog.log_exception('json.loads() fail with res json str: ' + res_json_string)
             sys.exit()
 
         # create quote model instance
@@ -50,18 +54,21 @@ class QuoteScrape:
         # pp.pprint(quote.__dict__)
 
 
-    @staticmethod
-    def scrape_forismatic():
+    @classmethod
+    def scrape_forismatic(cls):
 
         # make api call
         scrape_url = 'http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
         res = requests.get(scrape_url)
 
+        # unescape the result before deserializing json result
+        res_json_string = cls.unescape_string(res.text)
+
         # process res data
         try:
-            quote_data = json.loads(res.text)
+            quote_data = json.loads(res_json_string)
         except:
-            ErrorLog.log_exception('json.loads() fail with res.text: ' + res.text)
+            ErrorLog.log_exception('json.loads() fail with res json str: ' + res_json_string)
             sys.exit()
 
         # create quote model instance
@@ -127,7 +134,28 @@ class QuoteScrape:
             time.sleep(sleep_time)
 
 
+    @staticmethod
+    def unescape_string(string):
 
+        escapes = ['\\n', '\\r', '\\t', '\\']
+
+        do_log = False
+        if '\\' in string:
+            ErrorLog.log_info('Bad escape found for string: ' + string)
+            do_log = True
+
+        for esc in escapes:
+            if esc == '\\':
+                string = string.replace(esc, '')
+            else:
+                string = string.replace(esc, ' ')
+
+        re.sub(' +',' ', string)
+
+        if do_log:
+            ErrorLog.log_info('Changed to string: ' + string)
+
+        return string
 
 
 

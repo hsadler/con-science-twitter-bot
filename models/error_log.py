@@ -23,12 +23,20 @@ class ErrorLog:
         self.message = message
 
 
-    # create instance from error
+    # create instance from exception error
     @classmethod
     def log_exception(cls, message):
         exception = cls(message=message)
         logger.exception(exception.message)
         return exception
+
+
+    # create instance from info
+    @classmethod
+    def log_info(cls, message):
+        info = cls(message=message)
+        logger.info(info.message)
+        return info
 
 
     # test the logger
